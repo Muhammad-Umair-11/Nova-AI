@@ -20,7 +20,7 @@ function AppShell() {
   const qc = useQueryClient();
   const navigate = useNavigate();
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const name = (user.user_metadata?.full_name as string) || user.email || "You";
+  const name = (user.user_metadata?.["full_name"] as string) || user.email || "You";
 
   const signOut = async () => {
     await qc.cancelQueries();

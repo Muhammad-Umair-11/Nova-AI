@@ -46,7 +46,7 @@ function ChatLayout() {
 
   const remove = async (id: string) => {
     const { error } = await supabase.from("conversations").delete().eq("id", id);
-    if (error) return toast.error("Couldn't delete conversation");
+    if (error) { toast.error("Couldn't delete conversation"); return; }
     qc.invalidateQueries({ queryKey: conversationsKey });
     qc.invalidateQueries({ queryKey: ["dashboard"] });
     if (params.id === id) navigate({ to: "/chat" });

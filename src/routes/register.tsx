@@ -22,13 +22,13 @@ export const Route = createFileRoute("/register")({
 
 function Register() {
   const [f, setF] = useState({ name: "", email: "", password: "", confirm: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string; confirm?: string; form?: string }>({});
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const er: Record<string, string> = {};
+    const er: { name?: string; email?: string; password?: string; confirm?: string; form?: string } = {};
     if (!f.name.trim()) er.name = "Full name is required.";
     if (!/^\S+@\S+\.\S+$/.test(f.email)) er.email = "Enter a valid email address.";
     const pi = passwordIssues(f.password);

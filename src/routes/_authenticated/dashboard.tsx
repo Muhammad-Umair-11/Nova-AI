@@ -42,7 +42,7 @@ function Dashboard() {
     },
   });
 
-  const name = ((user.user_metadata?.full_name as string) || "").split(" ")[0];
+  const name = ((user.user_metadata?.["full_name"] as string) || "").split(" ")[0];
   const max = Math.max(1, ...(data?.days.map((d) => d.count) ?? [1]));
   const stats = [
     { label: "Total conversations", value: data?.total, icon: MessagesSquare },
