@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/chat")({
   component: ChatLayout,
 });
 
-export const conversationsKey = ["conversations"];
+const conversationsKey = ["conversations"];
 
 function ChatLayout() {
   const qc = useQueryClient();
