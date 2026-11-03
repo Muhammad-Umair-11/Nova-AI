@@ -1,11 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { generateResponse, GatewayError } from "@lovable.dev/ai-gateway";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
 
 const SYSTEM_PROMPT =
   "You are NovaAI, a friendly, professional customer support assistant. Give clear, accurate, concise answers. Use markdown (lists, short headings, code blocks) when it helps readability. If you don't know something, say so and suggest a next step.";
 
-type Supa = Parameters<Parameters<ReturnType<typeof createServerFn>["handler"]>[0]>[0] extends never ? never : any;
+type Supa = SupabaseClient<Database>;
 
 function friendlyError(e: unknown): string {
   if (e instanceof GatewayError) {
@@ -20,7 +22,7 @@ function friendlyError(e: unknown): string {
   return "Something went wrong while generating a reply. Please try again.";
 }
 
-async function generateReply(supabase: Supa, conversationId: string): Promise<{ id: string; content: string; created_at: string; sender: string }> {
+async function generateReply(supabase: Supa, userId: string, conversationId: string): Promise<{ id: string; content: string; created_at: string; sender: string }> {
   const { data: history, error } = await supabase
     .from("messages")
     .select("sender, content")
@@ -34,7 +36,7 @@ async function generateReply(supabase: Supa, conversationId: string): Promise<{ 
     const res = await generateResponse({
       model: "openai/gpt-6-astra",
       instructions: SYSTEM_PROMPT,
-      input: (history ?? []).map((m: { sender: string; content: string }) => ({
+      input: (history ?? []).map((m) => ({
         role: m.sender === "user" ? ("user" as const) : ("assistant" as const),
         content: m.content,
       })),
@@ -50,10 +52,9 @@ async function generateReply(supabase: Supa, conversationId: string): Promise<{ 
     throw new Error(friendlyError(e));
   }
 
-  const { data: claims } = await supabase.auth.getUser();
   const { data: saved, error: insErr } = await supabase
     .from("messages")
-    .insert({ conversation_id: conversationId, user_id: claims.user!.id, sender: "assistant", content: text })
+    .insert({ conversation_id: conversationId, user_id: userId, sender: "assistant", content: text })
     .select("id, content, created_at, sender")
     .single();
   if (insErr) throw new Error("The reply was generated but couldn't be saved.");
@@ -99,7 +100,7 @@ export const sendMessage = createServerFn({ method: "POST" })
     if (uErr) throw new Error("Your message couldn't be saved.");
 
     try {
-      const reply = await generateReply(supabase, conversationId!);
+      const reply = await generateReply(supabase, userId, conversationId!);
       return { conversationId: conversationId!, reply, error: null as string | null };
     } catch (e) {
       return { conversationId: conversationId!, reply: null, error: (e as Error).message };
@@ -113,7 +114,7 @@ export const regenerateReply = createServerFn({ method: "POST" })
     return input;
   })
   .handler(async ({ data, context }) => {
-    const { supabase } = context;
+    const { supabase, userId } = context;
     const { data: last } = await supabase
       .from("messages")
       .select("id, sender")
@@ -124,7 +125,7 @@ export const regenerateReply = createServerFn({ method: "POST" })
     if (!last) throw new Error("Conversation not found.");
     if (last.sender === "assistant") await supabase.from("messages").delete().eq("id", last.id);
     try {
-      const reply = await generateReply(supabase, data.conversationId);
+      const reply = await generateReply(supabase, userId, data.conversationId);
       return { reply, error: null as string | null };
     } catch (e) {
       return { reply: null, error: (e as Error).message };
