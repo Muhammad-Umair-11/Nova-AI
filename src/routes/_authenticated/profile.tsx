@@ -26,13 +26,13 @@ function Profile() {
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (name.trim().length > 80) return toast.error("Name is too long.");
-    if (avatar && !/^https:\/\/\S+$/.test(avatar)) return toast.error("Photo link must start with https://");
+    if (name.trim().length > 80) { toast.error("Name is too long."); return; }
+    if (avatar && !/^https:\/\/\S+$/.test(avatar)) { toast.error("Photo link must start with https://"); return; }
     setSaving(true);
     const { error } = await supabase.from("profiles").upsert({ id: user.id, full_name: name.trim() || null, avatar_url: avatar || null, updated_at: new Date().toISOString() });
     await supabase.auth.updateUser({ data: { full_name: name.trim() } });
     setSaving(false);
-    if (error) return toast.error("Couldn't save your profile.");
+    if (error) { toast.error("Couldn't save your profile."); return; }
     qc.invalidateQueries({ queryKey: ["profile"] });
     toast.success("Profile saved");
   };
