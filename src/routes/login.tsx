@@ -11,10 +11,10 @@ import { Loader2 } from "lucide-react";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Log in — NovaAI" },
-      { name: "description", content: "Log in to your NovaAI account." },
-      { property: "og:title", content: "Log in — NovaAI" },
-      { property: "og:description", content: "Access your NovaAI support assistant." },
+      { title: "Log in — NOVA AI" },
+      { name: "description", content: "Log in to your NOVA AI account." },
+      { property: "og:title", content: "Log in — NOVA AI" },
+      { property: "og:description", content: "Access your NOVA AI support assistant." },
     ],
   }),
   component: Login,
@@ -49,7 +49,7 @@ function Login() {
   };
 
   return (
-    <AuthShell title="Welcome back" subtitle="Log in to continue to NovaAI." footer={<>New to NovaAI? <Link to="/register" className="font-medium text-primary">Create an account</Link></>}>
+    <AuthShell title="Welcome back" subtitle="Log in to continue to NOVA AI." footer={<>New to NOVA AI? <Link to="/register" className="font-medium text-primary">Create an account</Link></>}>
       <SocialButtons />
       <form onSubmit={submit} className="space-y-4" noValidate>
         <div className="space-y-2">

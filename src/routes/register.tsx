@@ -11,9 +11,9 @@ import { passwordIssues } from "@/lib/validation";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Create account — NovaAI" },
-      { name: "description", content: "Create your free NovaAI account." },
-      { property: "og:title", content: "Create account — NovaAI" },
+      { title: "Create account — NOVA AI" },
+      { name: "description", content: "Create your free NOVA AI account." },
+      { property: "og:title", content: "Create account — NOVA AI" },
       { property: "og:description", content: "Start using your AI support assistant." },
     ],
   }),
@@ -63,7 +63,7 @@ function Register() {
   );
 
   return (
-    <AuthShell title="Create your account" subtitle="Start supporting customers with NovaAI." footer={<>Already have an account? <Link to="/login" className="font-medium text-primary">Log in</Link></>}>
+    <AuthShell title="Create your account" subtitle="Start supporting customers with NOVA AI." footer={<>Already have an account? <Link to="/login" className="font-medium text-primary">Log in</Link></>}>
       <SocialButtons />
       <form onSubmit={submit} className="space-y-4" noValidate>
         {field("name", "Full name", "text", "name")}

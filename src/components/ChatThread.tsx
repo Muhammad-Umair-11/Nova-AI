@@ -31,6 +31,7 @@ export function ChatThread({ conversationId }: { conversationId: string | null }
   const [failed, setFailed] = useState<string | null>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   const key = ["messages", conversationId];
 
   const { data: conv } = useQuery({
@@ -180,7 +181,17 @@ export function ChatThread({ conversationId }: { conversationId: string | null }
 
       <div className="shrink-0 px-5 pb-5">
         <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border bg-card p-2 shadow-card focus-within:border-primary/50">
-          <Button type="button" variant="ghost" size="icon" aria-label="Attach file" onClick={() => toast.info("Attachments are coming soon.")}><Paperclip /></Button>
+          <input ref={fileRef} type="file" accept=".txt,.md,.csv,.json,.log,.html,.xml,.js,.ts,.py,text/*" className="hidden" onChange={async (e) => {
+            const f = e.target.files?.[0];
+            e.target.value = "";
+            if (!f) return;
+            if (f.size > 100_000) return toast.error("File is too large (max 100 KB).");
+            const text = await f.text();
+            setInput((cur) => `${cur ? cur + "\n\n" : ""}Attached file "${f.name}":\n\`\`\`\n${text.slice(0, 6000)}\n\`\`\``);
+            toast.success(`Attached ${f.name}`);
+            textRef.current?.focus();
+          }} />
+          <Button type="button" variant="ghost" size="icon" aria-label="Attach file" title="Attach a text file" onClick={() => fileRef.current?.click()}><Paperclip /></Button>
           <textarea
             ref={textRef}
             rows={1}

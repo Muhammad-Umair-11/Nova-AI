@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MessagesSquare, MessageCircle, Activity, CalendarDays, MessageSquarePlus, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — NovaAI" }, { name: "description", content: "Your NovaAI overview." }, { property: "og:title", content: "Dashboard — NovaAI" }, { property: "og:description", content: "Your NovaAI overview." }] }),
+  head: () => ({ meta: [{ title: "Dashboard — NOVA AI" }, { name: "description", content: "Your NOVA AI overview." }, { property: "og:title", content: "Dashboard — NOVA AI" }, { property: "og:description", content: "Your NOVA AI overview." }] }),
   component: Dashboard,
 });
 
@@ -73,7 +73,7 @@ function Dashboard() {
       <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
         <div className="rounded-xl border bg-card p-6 shadow-card">
           <h2 className="text-base font-semibold">Usage — last 7 days</h2>
-          <p className="text-xs text-muted-foreground">Questions you asked NovaAI per day</p>
+          <p className="text-xs text-muted-foreground">Questions you asked NOVA AI per day</p>
           <div className="mt-6 flex h-44 items-end gap-3">
             {data?.days.map((d) => (
               <div key={d.key} className="flex flex-1 flex-col items-center gap-2">

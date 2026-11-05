@@ -9,10 +9,10 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
     meta: [
-      { title: "Reset password — NovaAI" },
-      { name: "description", content: "Get a link to reset your NovaAI password." },
-      { property: "og:title", content: "Reset password — NovaAI" },
-      { property: "og:description", content: "Recover access to your NovaAI account." },
+      { title: "Reset password — NOVA AI" },
+      { name: "description", content: "Get a link to reset your NOVA AI password." },
+      { property: "og:title", content: "Reset password — NOVA AI" },
+      { property: "og:description", content: "Recover access to your NOVA AI account." },
     ],
   }),
   component: Forgot,

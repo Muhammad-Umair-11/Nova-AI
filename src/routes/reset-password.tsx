@@ -11,10 +11,10 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Set new password — NovaAI" },
-      { name: "description", content: "Choose a new password for your NovaAI account." },
-      { property: "og:title", content: "Set new password — NovaAI" },
-      { property: "og:description", content: "Choose a new NovaAI password." },
+      { title: "Set new password — NOVA AI" },
+      { name: "description", content: "Choose a new password for your NOVA AI account." },
+      { property: "og:title", content: "Set new password — NOVA AI" },
+      { property: "og:description", content: "Choose a new NOVA AI password." },
     ],
   }),
   component: Reset,

@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/chat")({
-  head: () => ({ meta: [{ title: "Chat — NovaAI" }, { name: "description", content: "Chat with NovaAI." }, { property: "og:title", content: "Chat — NovaAI" }, { property: "og:description", content: "Chat with NovaAI." }] }),
+  head: () => ({ meta: [{ title: "Chat — NOVA AI" }, { name: "description", content: "Chat with NOVA AI." }, { property: "og:title", content: "Chat — NOVA AI" }, { property: "og:description", content: "Chat with NOVA AI." }] }),
   component: ChatLayout,
 });
 

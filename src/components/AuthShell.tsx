@@ -21,7 +21,7 @@ export function AuthShell({ title, subtitle, children, footer }: { title: string
       <div className="relative hidden overflow-hidden bg-ink p-12 text-ink-foreground lg:flex lg:flex-col lg:justify-end">
         <div className="grid-fade pointer-events-none absolute inset-0 opacity-20" />
         <blockquote className="relative max-w-md">
-          <p className="font-display text-2xl leading-snug">"NovaAI answers the questions our team used to spend hours on — instantly, and in our tone."</p>
+          <p className="font-display text-2xl leading-snug">"NOVA AI answers the questions our team used to spend hours on — instantly, and in our tone."</p>
           <footer className="mt-4 text-sm opacity-60">Example customer quote</footer>
         </blockquote>
       </div>
