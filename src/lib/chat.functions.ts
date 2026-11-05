@@ -5,14 +5,14 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 
 const SYSTEM_PROMPT =
-  "You are NovaAI, a friendly, professional customer support assistant. Give clear, accurate, concise answers. Use markdown (lists, short headings, code blocks) when it helps readability. If you don't know something, say so and suggest a next step.";
+  "You are NOVA AI, a friendly, professional customer support assistant. Give clear, accurate, concise answers. Use markdown (lists, short headings, code blocks) when it helps readability. If you don't know something, say so and suggest a next step.";
 
 type Supa = SupabaseClient<Database>;
 
 function friendlyError(e: unknown): string {
   if (e instanceof GatewayError) {
     const name = e.constructor.name;
-    if (name === "RateLimitError") return "NovaAI is getting a lot of requests right now. Please wait a moment and try again.";
+    if (name === "RateLimitError") return "NOVA AI is getting a lot of requests right now. Please wait a moment and try again.";
     if (name === "PaymentRequiredError") return "AI usage credits have run out for this workspace. Please top up to continue.";
     if (name === "TimeoutError" || name === "NetworkError") return "The AI service didn't respond in time. Please try again.";
     console.error("Gateway error", e.code, e.ids);

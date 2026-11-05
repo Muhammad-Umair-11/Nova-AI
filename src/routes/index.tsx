@@ -8,9 +8,9 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NovaAI — AI-Powered Customer Support, Simplified" },
-      { name: "description", content: "NovaAI helps businesses deliver fast, accurate AI-powered customer support with conversation history and analytics." },
-      { property: "og:title", content: "NovaAI — AI-Powered Customer Support, Simplified" },
+      { title: "NOVA AI — AI-Powered Customer Support, Simplified" },
+      { name: "description", content: "NOVA AI helps businesses deliver fast, accurate AI-powered customer support with conversation history and analytics." },
+      { property: "og:title", content: "NOVA AI — AI-Powered Customer Support, Simplified" },
       { property: "og:description", content: "Your intelligent customer support assistant." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -31,7 +31,7 @@ const features = [
 const steps = [
   ["Create an account", "Sign up in seconds with email or Google."],
   ["Start a conversation", "Ask anything — or pick a suggested prompt."],
-  ["NovaAI processes it", "Your request is handled securely on our servers."],
+  ["NOVA AI processes it", "Your request is handled securely on our servers."],
   ["Get your answer", "Receive a clear, well-formatted response instantly."],
 ];
 
@@ -64,7 +64,7 @@ function Landing() {
               AI-Powered Customer Support, <span className="text-primary">Simplified.</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg text-muted-foreground">
-              NovaAI gives your customers instant, accurate answers around the clock — with every conversation saved, searchable, and measurable.
+              NOVA AI gives your customers instant, accurate answers around the clock — with every conversation saved, searchable, and measurable.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" asChild><Link to="/register">Get started <ArrowRight /></Link></Button>
@@ -138,7 +138,7 @@ function Landing() {
             </div>
           ))}
         </div>
-        <p className="mx-auto mt-10 max-w-6xl px-6 text-xs text-muted-foreground">© {new Date().getFullYear()} NovaAI. All rights reserved.</p>
+        <p className="mx-auto mt-10 max-w-6xl px-6 text-xs text-muted-foreground">© {new Date().getFullYear()} NOVA AI. All rights reserved.</p>
       </footer>
     </div>
   );
@@ -150,7 +150,7 @@ function ChatPreview() {
       <div className="flex items-center gap-3 border-b px-5 py-4">
         <LogoMark />
         <div>
-          <p className="text-sm font-semibold">NovaAI Assistant</p>
+          <p className="text-sm font-semibold">NOVA AI Assistant</p>
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground"><span className="h-1.5 w-1.5 rounded-full bg-success" />Online</p>
         </div>
       </div>
@@ -170,7 +170,7 @@ function ChatPreview() {
         </div>
       </div>
       <div className="flex items-center gap-2 border-t p-4">
-        <div className="flex-1 rounded-lg border bg-background px-3 py-2 text-sm text-muted-foreground">Ask NovaAI anything…</div>
+        <div className="flex-1 rounded-lg border bg-background px-3 py-2 text-sm text-muted-foreground">Ask NOVA AI anything…</div>
         <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground"><Send className="h-4 w-4" /></span>
       </div>
     </div>

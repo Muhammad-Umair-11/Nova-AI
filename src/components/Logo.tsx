@@ -21,7 +21,7 @@ export function Logo({ className, light }: { className?: string; light?: boolean
     <span className={cn("inline-flex items-center gap-2", className)}>
       <LogoMark />
       <span className={cn("font-display text-lg font-semibold tracking-tight", light && "text-sidebar-accent-foreground")}>
-        Nova<span className="text-primary">AI</span>
+        NOVA <span className="text-primary">AI</span>
       </span>
     </span>
   );

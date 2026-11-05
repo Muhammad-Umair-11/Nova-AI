@@ -2,7 +2,9 @@ import { createFileRoute, Link, Outlet, redirect, useNavigate, useRouterState } 
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/Logo";
-import { LayoutDashboard, MessageSquarePlus, MessagesSquare, LogOut } from "lucide-react";
+import { LayoutDashboard, MessageSquarePlus, MessagesSquare, LogOut, Star, BarChart3, User as UserIcon, Settings, ShieldCheck, Moon, Sun } from "lucide-react";
+import { useIsAdmin } from "@/lib/use-is-admin";
+import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated")({
@@ -29,10 +31,17 @@ function AppShell() {
     navigate({ to: "/login", replace: true });
   };
 
+  const { data: isAdmin } = useIsAdmin(user.id);
+  const { theme, toggle } = useTheme();
   const nav = [
     { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, active: path === "/dashboard" },
     { to: "/chat", label: "New chat", icon: MessageSquarePlus, active: path === "/chat" },
     { to: "/chat", label: "Conversations", icon: MessagesSquare, active: path.startsWith("/chat/") },
+    { to: "/favorites", label: "Favorites", icon: Star, active: path === "/favorites" },
+    { to: "/analytics", label: "Analytics", icon: BarChart3, active: path === "/analytics" },
+    { to: "/profile", label: "Profile", icon: UserIcon, active: path === "/profile" },
+    { to: "/settings", label: "Settings", icon: Settings, active: path === "/settings" },
+    ...(isAdmin ? [{ to: "/admin", label: "Admin", icon: ShieldCheck, active: path === "/admin" }] as const : []),
   ] as const;
 
   return (
@@ -54,6 +63,9 @@ function AppShell() {
               <p className="truncate text-xs opacity-60">{user.email}</p>
             </div>
           </div>
+          <button onClick={toggle} className="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}{theme === "dark" ? "Light mode" : "Dark mode"}
+          </button>
           <button onClick={signOut} className="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
             <LogOut className="h-4 w-4" />Log out
           </button>
@@ -63,7 +75,7 @@ function AppShell() {
         <div className="flex items-center justify-between border-b px-4 py-3 md:hidden">
           <Link to="/dashboard"><Logo /></Link>
           <div className="flex gap-3 text-sm">
-            <Link to="/dashboard">Dashboard</Link><Link to="/chat">Chat</Link>
+            <Link to="/dashboard">Dashboard</Link><Link to="/chat">Chat</Link><Link to="/settings">Settings</Link>
             <button onClick={signOut}>Log out</button>
           </div>
         </div>
