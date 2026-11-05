@@ -25,17 +25,17 @@ function Settings() {
   const changePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     const pi = passwordIssues(p);
-    if (pi.length) return toast.error("Password needs " + pi.join(", ") + ".");
-    if (p !== c) return toast.error("Passwords don't match.");
+    if (pi.length) { toast.error("Password needs " + pi.join(", ") + "."); return; }
+    if (p !== c) { toast.error("Passwords don't match."); return; }
     const { error } = await supabase.auth.updateUser({ password: p });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setP(""); setC("");
     toast.success("Password updated");
   };
 
   const clearHistory = async () => {
     const { error } = await supabase.from("conversations").delete().eq("user_id", user.id);
-    if (error) return toast.error("Couldn't delete your conversations.");
+    if (error) { toast.error("Couldn't delete your conversations."); return; }
     toast.success("All conversations deleted");
     navigate({ to: "/dashboard" });
   };

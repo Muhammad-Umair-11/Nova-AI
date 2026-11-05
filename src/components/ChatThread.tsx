@@ -185,7 +185,7 @@ export function ChatThread({ conversationId }: { conversationId: string | null }
             const f = e.target.files?.[0];
             e.target.value = "";
             if (!f) return;
-            if (f.size > 100_000) return toast.error("File is too large (max 100 KB).");
+            if (f.size > 100_000) { toast.error("File is too large (max 100 KB)."); return; }
             const text = await f.text();
             setInput((cur) => `${cur ? cur + "\n\n" : ""}Attached file "${f.name}":\n\`\`\`\n${text.slice(0, 6000)}\n\`\`\``);
             toast.success(`Attached ${f.name}`);

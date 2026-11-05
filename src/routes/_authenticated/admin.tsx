@@ -40,7 +40,7 @@ function AdminPanel() {
   const del = async (id: string) => {
     if (!confirm("Delete this conversation?")) return;
     const { error } = await supabase.from("conversations").delete().eq("id", id);
-    if (error) return toast.error("Couldn't delete");
+    if (error) { toast.error("Couldn't delete"); return; }
     toast.success("Conversation deleted");
     qc.invalidateQueries({ queryKey: ["admin"] });
   };
